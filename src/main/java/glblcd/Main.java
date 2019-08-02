@@ -28,11 +28,11 @@ public class Main {
         var request = HttpRequest.newBuilder(url).build();
         var res = client.send(request, HttpResponse.BodyHandlers.ofString(Charset.defaultCharset()));
 
-        System.out.println(res.body());
+//        System.out.println(res.body());
         System.out.println(parseJson(res.body()));
 
         Main m = new Main();
-        m.run();
+        System.out.println(m.run());
 
     }
 
@@ -44,10 +44,10 @@ public class Main {
         return productJson;
     }
 
-    private void run() throws IOException {
+    private Map<String, Object> run() throws IOException {
         String json = null;
             var contents = Files.readAllBytes(Paths.get("src/main/resources/cake.json"));
             json = new String(contents);
-            System.out.println(parseJson(json));
+            return parseJson(json);
     }
 }

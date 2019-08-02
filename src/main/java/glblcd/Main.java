@@ -29,6 +29,7 @@ public class Main {
         var res = client.send(request, HttpResponse.BodyHandlers.ofString(Charset.defaultCharset()));
 
         System.out.println(res.body());
+        System.out.println(parseJson(res.body()));
 
         Main m = new Main();
         m.run();
@@ -36,11 +37,17 @@ public class Main {
     }
 
 
-
+    public static Map<String, Object> parseJson(String json) throws IOException {
+        var map = new ObjectMapper();
+        var type = new TypeReference<HashMap<String, Object>>(){};
+        Map<String, Object> productJson = map.readValue(json, type);
+        return productJson;
+    }
 
     private void run() throws IOException {
         String json = null;
             var contents = Files.readAllBytes(Paths.get("src/main/resources/cake.json"));
             json = new String(contents);
+            System.out.println(parseJson(json));
     }
 }
